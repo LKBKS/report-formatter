@@ -2,9 +2,10 @@
 // This is analogous to normal Typescript '   import {...} from "..."   '
 /** @typedef {import("./types").Formatters} Formatters */
 /** @typedef {import("./types").ReportDefinition} ReportDefinition */
+/** @typedef {import("./types").Metric} Metric */
 
 export class ReportDataSource {
-  /** @type {(string | number)[][]} */
+  /** @type {Record<string, string | number>[]} */
   rowsData;
   /** @type {ReportDefinition} */
   definition;
@@ -12,12 +13,17 @@ export class ReportDataSource {
   formatters;
 
   /**
-   * @param {(string | number)[][]} rowsData
+   * @param {Record<string, string | number>[]} rowsData
    * @param {ReportDefinition} reportDefinition
-   * @param {any[]} dimensionColumns
+   * @param {Metric[]} dimensionColumns
    * @param {Formatters} formatters
    */
-  constructor(rowsData, reportDefinition, dimensionColumns, formatters = {}) {
+  constructor(
+    rowsData,
+    reportDefinition,
+    dimensionColumns = [],
+    formatters = {}
+  ) {
     this.rowsData = rowsData;
 
     const def = Object.assign({}, reportDefinition);

@@ -10,7 +10,20 @@ export interface Metric {
   key: string;
   header: string;
   type: "job_number" | "longtext" | "date" | "shorttext" | "name" | "currency";
-  option?: "year" | "month" | "day" | "month-year" | "date" | "";
+  option?:
+    | "year"
+    | "month"
+    | "day"
+    | "month-year"
+    | "date"
+    | "average"
+    | "count"
+    | "";
+}
+
+export interface Column extends Metric {
+  subheaders: (number | string)[];
+  columnKey: string;
 }
 
 /**
@@ -25,8 +38,11 @@ export interface ReportDefinition {
   grouping: Metric[];
   groupingKeys: any;
   measures: Metric[];
-  options: any;
-  sort: any[];
+  options: {
+    showGroupTotals: boolean;
+    showTotals: boolean;
+  };
+  sort: Metric[];
   source: Metric[];
   view: "report" | "graph";
   xAxis: any[];
