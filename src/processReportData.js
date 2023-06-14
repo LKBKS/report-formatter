@@ -86,7 +86,29 @@ export function processReportData(rows, definition) {
 
     for (const fact of definition.facts) {
       // if we want to accumulate fact values into an array, can add it here TODO(ivan)
+
+      /** @type {string | number | null} */
       let factValue = row[fact.key];
+
+      if (fact.type === "currency") {
+        // a. normalize to number
+        /** @type {number} */
+        let numValue;
+        if (typeof factValue === "string") {
+          numValue = parseInt(factValue);
+        } else if (typeof factValue === "number") {
+          numValue = factValue;
+        } else {
+          numValue = Number.NaN;
+        }
+        // b. show in dollars instead of cents
+        if (Number.isNaN(numValue)) {
+          factValue = "-";
+        } else {
+          factValue = Math.round(numValue) / 100;
+        }
+      }
+
       if (fact.hasOwnProperty("option")) {
         if (factValue === null || factValue === "") {
           accumulator[fact.key] = "-";
