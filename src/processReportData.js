@@ -14,6 +14,8 @@ export function processReportData(rows, definition) {
   /** @type {Record<string, string | number>} */
   const template = {};
 
+  console.log('test 1')
+
   // initialize the totals row
   // NOTE: the arbitrary values (e.g. totals[someKey]) will be all numbers,
   //       yet it is not possible to express this as Typescript type due to
