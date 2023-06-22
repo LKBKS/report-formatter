@@ -60,7 +60,7 @@ export function processReportData(rows, definition) {
                 monthYearDate.getFullYear() * 100 + monthYearDate.getMonth();
               break;
             case "day":
-              groupingKey = new Date(rowKeyValue).getDate();
+              groupingKey = new Intl.DateTimeFormat("en-US", { weekday: 'long' }).format(new Date(rowKeyValue).valueOf());
               break;
             case "date":
             default:
