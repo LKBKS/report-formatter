@@ -132,17 +132,17 @@ export function processReportData(rows, definition) {
               if (factValue === null || factValue === "")
                 accumulator[fact.key] = "-";
               accumulator[fact.key] = new Intl.DateTimeFormat("en-US", {
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric'
+                month: "long",
+                year: "numeric",
               }).format(new Date(factValue));
               break;
             case "day":
               if (factValue === null || factValue === "")
                 accumulator[fact.key] = "-";
               accumulator[fact.key] = new Intl.DateTimeFormat("en-US", {
-                month: "long",
-                year: "numeric",
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
               }).format(new Date(factValue));
               break;
             default:
