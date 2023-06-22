@@ -154,8 +154,8 @@ export class ReportDataSource {
                     : String(value);
                   break;
                 case "day":
-                  value = formatters.year
-                    ? formatters.year.format(new Date(value).valueOf())
+                  value = formatters.day
+                    ? formatters.day.format(new Date(value).valueOf())
                     : String(value);
                   break;
                 default:
