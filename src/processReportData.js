@@ -55,9 +55,10 @@ export function processReportData(rows, definition) {
               groupingKey = new Date(rowKeyValue).getMonth();
               break;
             case "month-year":
-              const monthYearDate = new Date(rowKeyValue);
-              groupingKey =
-                monthYearDate.getFullYear() * 100 + monthYearDate.getMonth();
+              groupingKey = new Intl.DateTimeFormat("en-US", {
+                month: "long",
+                year: "numeric",
+              }).format(new Date(rowKeyValue).valueOf());
               break;
             case "day":
               groupingKey = new Intl.DateTimeFormat("en-US", { weekday: 'long' }).format(new Date(rowKeyValue).valueOf());
