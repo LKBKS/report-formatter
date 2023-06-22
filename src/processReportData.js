@@ -46,7 +46,9 @@ export function processReportData(rows, definition) {
         const rowKeyValue = row[grouping.key] || 0;
         /** @type {string | null | number} */
         let groupingKey = row[grouping.key];
-        if (grouping.hasOwnProperty("option")) {
+        if (grouping.hasOwnProperty("option") && grouping.option?.length) {
+          // this extra check if grouping.option is not empty is needed because if it exists and it's empty
+          // (which is the case for majority of grouping keys), it overwrites groupingKey which then breaks grouping
           switch (grouping.option) {
             case "year":
               groupingKey = new Date(rowKeyValue).getFullYear();
@@ -71,7 +73,8 @@ export function processReportData(rows, definition) {
               break;
           }
         }
-        groupKey += groupingKey + "|";
+        groupKey += `${groupingKey}|`;
+
       }
     } else {
       groupKey = i;
@@ -116,12 +119,14 @@ export function processReportData(rows, definition) {
         } else {
           switch (fact.option) {
             case "year":
-              if (factValue === null || factValue === "") {
+              if (factValue === null || factValue === "")
                 accumulator[fact.key] = "-";
-              } else {
-                accumulator[fact.key] = new Date(factValue).getFullYear();
-              }
-              break;
+                accumulator[fact.key] = new Intl.DateTimeFormat("en-US", {
+                  year: 'numeric',
+                  month: 'long',
+                  day: 'numeric'
+                }).format(new Date(factValue));
+                break;
             case "month":
               if (factValue === null || factValue === "")
                 accumulator[fact.key] = "-";
