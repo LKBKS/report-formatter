@@ -43,7 +43,7 @@ export class ReportDataSource {
       month: "long",
       year: "numeric",
     }),
-    dat: new Intl.DateTimeFormat("en-US", { month: "long", year: "numeric" }),
+    day: new Intl.DateTimeFormat("en-US", { weekday: 'long' }),
     number: new Intl.NumberFormat("en-US", {
       currency: "USD",
       maximumFractionDigits: 0,
