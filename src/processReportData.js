@@ -121,12 +121,12 @@ export function processReportData(rows, definition) {
             case "year":
               if (factValue === null || factValue === "")
                 accumulator[fact.key] = "-";
-                accumulator[fact.key] = new Intl.DateTimeFormat("en-US", {
-                  year: 'numeric',
-                  month: 'long',
-                  day: 'numeric'
-                }).format(new Date(factValue));
-                break;
+              accumulator[fact.key] = new Intl.DateTimeFormat("en-US", {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+              }).format(new Date(factValue));
+              break;
             case "month":
               if (factValue === null || factValue === "")
                 accumulator[fact.key] = "-";
