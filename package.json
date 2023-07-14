@@ -1,6 +1,6 @@
 {
-  "name": "@trulyacerbic/report-formatter",
-  "version": "1.0.4",
+  "name": "@lookbooks/report-formatter",
+  "version": "1.0.8",
   "description": "Format default presentation of tabulated report data.",
   "author": "Gleb Varenov <kuzzdra@gmail.com>",
   "license": "MIT",

@@ -43,7 +43,7 @@ export class ReportDataSource {
       month: "long",
       year: "numeric",
     }),
-    dat: new Intl.DateTimeFormat("en-US", { month: "long", year: "numeric" }),
+    day: new Intl.DateTimeFormat("en-US", { weekday: 'long' }),
     number: new Intl.NumberFormat("en-US", {
       currency: "USD",
       maximumFractionDigits: 0,
@@ -154,8 +154,8 @@ export class ReportDataSource {
                     : String(value);
                   break;
                 case "day":
-                  value = formatters.year
-                    ? formatters.year.format(new Date(value).valueOf())
+                  value = formatters.day
+                    ? formatters.day.format(new Date(value).valueOf())
                     : String(value);
                   break;
                 default:
