@@ -130,28 +130,34 @@ export function processReportData(rows, definition) {
               }
               break;
             case "month":
-              if (factValue === null || factValue === "")
+              if (factValue === null || factValue === "") {
                 accumulator[fact.key] = "-";
-              accumulator[fact.key] = new Intl.DateTimeFormat("en-US", {
-                month: "long",
-              }).format(new Date(factValue));
+              } else {
+                accumulator[fact.key] = new Intl.DateTimeFormat("en-US", {
+                  month: "long",
+                }).format(new Date(factValue));
+              }
               break;
             case "month-year":
-              if (factValue === null || factValue === "")
+              if (factValue === null || factValue === "") {
                 accumulator[fact.key] = "-";
-              accumulator[fact.key] = new Intl.DateTimeFormat("en-US", {
-                month: "long",
-                year: "numeric",
-              }).format(new Date(factValue));
+              } else {
+                accumulator[fact.key] = new Intl.DateTimeFormat("en-US", {
+                  month: "long",
+                  year: "numeric",
+                }).format(new Date(factValue));
+              }
               break;
             case "day":
-              if (factValue === null || factValue === "")
+              if (factValue === null || factValue === "") {
                 accumulator[fact.key] = "-";
-              accumulator[fact.key] = new Intl.DateTimeFormat("en-US", {
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric'
-              }).format(new Date(factValue));
+              } else {
+                accumulator[fact.key] = new Intl.DateTimeFormat("en-US", {
+                  year: 'numeric',
+                  month: 'long',
+                  day: 'numeric'
+                }).format(new Date(factValue));
+              }
               break;
             default:
               accumulator[fact.key] = factValue;

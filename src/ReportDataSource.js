@@ -135,32 +135,42 @@ export class ReportDataSource {
 
       switch (definition.columns[columnIndex].type) {
         case "date":
-          if (value === null || value === "") {
+          if (value === null || value === "" || value === "-") {
             value = "-";
           } else if (definition.columns[columnIndex].hasOwnProperty("option")) {
-            if (value !== "-") {
-              switch (definition.columns[columnIndex].option) {
-                case "year":
-                  value = new Date(value).getFullYear();
-                  break;
-                case "month":
-                  value = formatters.month
-                    ? formatters.month.format(new Date(value).valueOf())
-                    : String(value);
-                  break;
-                case "month-year":
-                  value = formatters.monthYear
-                    ? formatters.monthYear.format(new Date(value).valueOf())
-                    : String(value);
-                  break;
-                case "day":
-                  value = formatters.day
-                    ? formatters.day.format(new Date(value).valueOf())
-                    : String(value);
-                  break;
-                default:
-                  value = String(value);
-              }
+            // NOTE: `value` here is a string, that was transformed from a Date
+            //       for grouping purposes. I.e. for "month-year" option it
+            //       could be something like "January 2023". The following
+            //       switch reinterprets it for displaying to user. So, back to
+            //       Date and then format again.
+            switch (definition.columns[columnIndex].option) {
+              case "year":
+                value = new Date(value).getFullYear();
+                break;
+              case "month":
+                // A Date that is processed with option "month" will produce a
+                // value like "March" - and it is impossible to generate a Date
+                // object from it by Date constructor like in other options.
+                // Thus, the lame hack with extending it to something
+                // Date.parse() would understand.
+                value = formatters.month
+                  ? formatters.month.format(new Date(`${value} 2000`).valueOf())
+                  : String(value);
+                break;
+              case "month-year":
+                value = formatters.monthYear
+                  ? formatters.monthYear.format(new Date(value).valueOf())
+                  : String(value);
+                break;
+              case "day":
+                // NOTE: actually value is something like "January 13, 2023",
+                //       so the grouping for "day" broken
+                value = formatters.day
+                  ? formatters.day.format(new Date(value).valueOf())
+                  : String(value);
+                break;
+              default:
+                value = String(value);
             }
           }
           break;
