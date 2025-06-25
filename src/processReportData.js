@@ -359,9 +359,8 @@ const buildDimensionSteps = (dimensions, rows) => {
  */
 const getColumnKey = (row, dimensions, measure) => {
   if (dimensions.length > 0) {
-    let columnKey = measure.key + "|";
+    let columnKey = measure.key;
 
-    // let value = row[measure.key];
     for (const dimension of dimensions) {
       /** @type {string | null | number} */
       let value = row[dimension.key];
@@ -396,7 +395,7 @@ const getColumnKey = (row, dimensions, measure) => {
         default:
         // do nothing, just use value
       }
-      columnKey += value;
+      columnKey += "|" + value;
     }
 
     return columnKey;
