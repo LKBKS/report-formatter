@@ -416,7 +416,7 @@ const getSubColumns = (columns, items, option) => {
   for (const item of items) {
     for (const column of columns) {
       let columnKey = column.key + "|";
-      let subheaders = column.subheaders;
+      let subheaders = [...column.subheaders];
       subheaders.push(item);
       subs.push({
         header: column.header,
