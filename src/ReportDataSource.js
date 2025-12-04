@@ -45,8 +45,8 @@ export class ReportDataSource {
     }),
     day: new Intl.DateTimeFormat("en-US", { weekday: 'long' }),
     number: new Intl.NumberFormat("en-US", {
-      currency: "USD",
-      maximumFractionDigits: 0,
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
       style: "decimal",
     }),
   };
