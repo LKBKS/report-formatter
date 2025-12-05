@@ -184,7 +184,7 @@ export function processReportData(rows, definition) {
 
       if (measure.type === "currency") {
         if (value === null) value = 0;
-        value = Math.round(parseInt(String(value)) / 100);
+        value = parseInt(String(value)) / 100;
 
         if (measure.option === "average") {
           if (exists) {
