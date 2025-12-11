@@ -221,7 +221,11 @@ export class ReportDataSource {
      * @type {Formatters}
      **/
     const formatters = {
-      number: null,
+      number: new Intl.NumberFormat("en-US", {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+        style: "decimal"
+      }),
       ...overrideFormatters,
     };
 
