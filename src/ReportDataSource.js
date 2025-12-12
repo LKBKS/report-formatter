@@ -153,8 +153,14 @@ export class ReportDataSource {
                 // object from it by Date constructor like in other options.
                 // Thus, the lame hack with extending it to something
                 // Date.parse() would understand.
+                let dateValue;
+                if (new Date(value) === "Invalid Date" || isNaN(new Date(value))) {
+                  dateValue = new Date(`${value} 2000`).valueOf();
+                } else {
+                  dateValue = new Date(value).valueOf();
+                }
                 value = formatters.month
-                  ? formatters.month.format(new Date(`${value} 2000`).valueOf())
+                  ? formatters.month.format(dateValue)
                   : String(value);
                 break;
               case "month-year":
