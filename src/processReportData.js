@@ -484,6 +484,16 @@ export function sortProcessedResults(definition, processed) {
       });
 
       switch (sort.type) {
+        case "longtext":
+        case "shorttext":
+        case "name":
+          sf.valueGetter = (a, b) => {
+            return {
+              aValue: a[sort.key].toLowerCase(),
+              bValue: b[sort.key].toLowerCase(),
+            };
+          };
+          break;
         case "date":
           switch (sort.option) {
             case "year":
