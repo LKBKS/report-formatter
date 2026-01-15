@@ -489,8 +489,8 @@ export function sortProcessedResults(definition, processed) {
         case "name":
           sf.valueGetter = (a, b) => {
             return {
-              aValue: a[sort.key].toLowerCase(),
-              bValue: b[sort.key].toLowerCase(),
+              aValue: typeof a[sort.key] === 'string' ? a[sort.key].toLowerCase() : a[sort.key],
+              bValue: typeof b[sort.key] === 'string' ? b[sort.key].toLowerCase() : b[sort.key],
             };
           };
           break;
