@@ -484,6 +484,16 @@ export function sortProcessedResults(definition, processed) {
       });
 
       switch (sort.type) {
+        case "longtext":
+        case "shorttext":
+        case "name":
+          sf.valueGetter = (a, b) => {
+            return {
+              aValue: typeof a[sort.key] === 'string' ? a[sort.key].toLowerCase() : a[sort.key],
+              bValue: typeof b[sort.key] === 'string' ? b[sort.key].toLowerCase() : b[sort.key],
+            };
+          };
+          break;
         case "date":
           switch (sort.option) {
             case "year":
@@ -506,9 +516,19 @@ export function sortProcessedResults(definition, processed) {
               break;
             case "month":
               sf.valueGetter = (a, b) => {
+                // If value is a month name, add a year so the date can be parsed
+                let aDate;
+                let bDate;
+                if (new Date(a[sort.key]) === "Invalid Date" || isNaN(new Date(a[sort.key]))) {
+                  aDate = new Date(`${a[sort.key]} 2000`);
+                  bDate = new Date(`${b[sort.key]} 2000`);
+                } else {
+                  aDate = new Date(a[sort.key]);
+                  bDate = new Date(b[sort.key]);
+                }
                 return {
-                  aValue: new Date(a[sort.key]).getMonth(),
-                  bValue: new Date(b[sort.key]).getMonth(),
+                  aValue: aDate.getMonth(),
+                  bValue: bDate.getMonth()
                 };
               };
               break;
